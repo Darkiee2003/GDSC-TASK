@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}FORM{% endblock title %}
+{% block body %}
+<form onsubmit="sendemail(); reset(); return false;">
+ 
+    <!-- code for making form -->
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="name" class="form-control" id="name" placeholder="ENTER YOUR NAME">
+    </div>
+    
+    <div class="form-group">
+    <label for="email">Email address</label>
+    <input type="email" class="form-control" id="email" placeholder="ENTER YOUR EMAIL ADRESS">
+  </div>
+    
+  <div class="form-group">
+    <label for="number">Phone Number</label>
+    <input type="number" class="form-control" id="number" placeholder="ENTER YOUR PHONE NUMBER">
+  </div>
+  
+  
+  <div class="form-group">
+    <label for="feedback">FEEDBACK</label>
+    <textarea class="form-control" id="feedback" rows="3"  placeholder="TYPE FEEDBACK HERE"></textarea>
+  </div>
+    <button type="submit" class="btn btn-success">Submit</button>
+</form>
+{% block head %}
+
+<!-- using js -->
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+<script>
+function sendemail(){
+Email.send({
+  Host : "smtp.elasticemail.com",
+  Username : "rajwardhanpatil.dev@gmail.com",
+  Password : "6409A0674F902D8841F5E5064D0741AECCE3",
+  To : 'rajwardhanpatil2003@gmail.com',
+  From : document.getElementById("email").value,
+  Subject : "FEEDBACK FORM",
+  Body : "NAME :" + document.getElementById("name").value
+         +"<br> EMAIL :" + document.getElementById("email").value
+         +"<br> PHONE NO:" + document.getElementById("number").value
+         +"<br> FEEDBACK :" + document.getElementById("feedback").value
+})
+Email.send({
+  Host : "smtp.elasticemail.com",
+  // USE THIS EMAIL AS USER EMAIL (rajwardhanpatil.dev@gmail.com) AS ONLY THIS EMAIL WILL WORK
+  Username : "rajwardhanpatil.dev@gmail.com",
+  Password : "6409A0674F902D8841F5E5064D0741AECCE3",
+  To : document.getElementById("email").value,
+  From : document.getElementById("email").value,
+  Subject : "FEEDBACK FORM",
+  Body : "NAME :" + document.getElementById("name").value
+         +"<br> EMAIL :" + document.getElementById("email").value
+         +"<br> PHONE NO:" + document.getElementById("number").value
+         +"<br> FEEDBACK :" + document.getElementById("feedback").value
+}).then(
+message => alert("YOUR FEEDBACK IS SUBMITTED CHECK YOUR EMAIL FOR COPY")
+);
+}
+</script>
+
+{% endblock head %}
+
+{% endblock body %}
